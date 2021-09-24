@@ -111,6 +111,17 @@ public class GameController : MonoBehaviour
         ShowBoard();
     }
     //1方向にゆっくり返す
+    void ReverseAll(int h, int v)
+    {
+        Reverse(h, v, 1, 0);//右
+        Reverse(h, v, -1, 0);//左
+        Reverse(h, v, 0, -1);//上
+        Reverse(h, v, 0, 1);//下
+        Reverse(h, v, 1, -1);//右上
+        Reverse(h, v, -1, -1);//左上
+        Reverse(h, v, 1, 1);//右下
+        Reverse(h, v, -1, 1);//左下
+    }
     void Reverse(int h, int v, int directionH, int directionV)
     {
         //確認する座標x,yを宣言
@@ -146,17 +157,6 @@ public class GameController : MonoBehaviour
             y += directionV;
         }
     }
-    void ReverseAll(int h, int v)
-    {
-        Reverse(h, v, 1, 0);//右
-        Reverse(h, v, -1, 0);//左
-        Reverse(h, v, 0, -1);//上
-        Reverse(h, v, 0, -1);//下
-        Reverse(h, v, 1, -1);//右上
-        Reverse(h, v, -1, -1);//左上
-        Reverse(h, v, 1, 1);//右下
-        Reverse(h, v, -1, 1);//左下
-    }
     bool CheckPass()
     {
         for (int v = 0; v < HEIGHT; v++)
@@ -186,7 +186,7 @@ public class GameController : MonoBehaviour
 
         for (int v = 0; v < HEIGHT; v++)
         {
-            for (int h = 0; h < WIDTH; v++)
+            for (int h = 0; h < WIDTH; h++)
             {
                 switch (board[h, v])
                 {
