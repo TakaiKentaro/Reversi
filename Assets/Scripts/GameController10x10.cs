@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 public class GameController10x10 : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class GameController10x10 : MonoBehaviour
     public void Initialize()
     {
         player = COLOR.BLACK;
+        resultText.gameObject.SetActive(false);
         resultText.text = "";
         board = new COLOR[WIDTH, HEIGHT];
         board[4, 4] = COLOR.WHITE;
@@ -107,8 +109,12 @@ public class GameController10x10 : MonoBehaviour
                     CheckGame();
                 }
             }
+            else
+            {
+                ShowBoard();
+            }
         }
-        ShowBoard();
+        
     }
     //1方向にゆっくり返す
     void ReverseAll(int h, int v)
@@ -201,9 +207,14 @@ public class GameController10x10 : MonoBehaviour
                 }
             }
         }
+
+        Image[] allCell = boardDisplay.GetComponentsInChildren<Image>();
+        Debug.Log($"{ allCell.Length}");
+
         if (black > white)
         {
-            resultText.text = "黒" + black + "：白" + white + "で黒の勝ち";
+            //resultText.text = "黒" + black + "：白" + white + "で黒の勝ち";
+            resultText.text = $"黒{black} : 白{white}で黒の勝ち";
         }
         else if (black < white)
         {
@@ -213,5 +224,7 @@ public class GameController10x10 : MonoBehaviour
         {
             resultText.text = "黒" + black + "：白" + white + "で引き分け";
         }
+
+        resultText.gameObject.SetActive(true);
     }
 }

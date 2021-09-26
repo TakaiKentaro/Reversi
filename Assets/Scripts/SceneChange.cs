@@ -4,29 +4,28 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
-{   
-    public void OnStart()
+{
+    [SerializeField] float m_time;
+    private AudioSource audioSource;
+    private void Start()
     {
-        SceneManager.LoadScene("SelectMode");
+        audioSource = GetComponent<AudioSource>();
     }
-    public void Back()
+    public void SetScene(string set)
     {
-        SceneManager.LoadScene("title");
+        PlayOneShot();
+        StartCoroutine(Set(set));
     }
-    public void Four()
+
+    IEnumerator Set(string set)
     {
-        SceneManager.LoadScene("4x4Game");
+
+        yield return new WaitForSeconds(m_time);
+        SceneManager.LoadScene(set);
+
     }
-    public void Six()
+    public void PlayOneShot()
     {
-        SceneManager.LoadScene("6x6Game");
-    }
-    public void Eeight()
-    {
-        SceneManager.LoadScene("Game");
-    }
-    public void Ten()
-    {
-        SceneManager.LoadScene("10x10Game");
+        audioSource.PlayOneShot(audioSource.clip, 1f);
     }
 }

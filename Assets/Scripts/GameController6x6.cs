@@ -32,6 +32,7 @@ public class GameController6x6 : MonoBehaviour
     public void Initialize()
     {
         player = COLOR.BLACK;
+        resultText.gameObject.SetActive(false);
         resultText.text = "";
         board = new COLOR[WIDTH, HEIGHT];
         board[2, 2] = COLOR.WHITE;
@@ -213,5 +214,6 @@ public class GameController6x6 : MonoBehaviour
         {
             resultText.text = "黒" + black + "：白" + white + "で引き分け";
         }
+        resultText.gameObject.SetActive(true);
     }
 }
