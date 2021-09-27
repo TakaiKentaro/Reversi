@@ -1108,7 +1108,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u6B21\u306E\u756A\uFF1A"
+  m_Text: "\u30BF\u30FC\u30F3\uFF1A"
 --- !u!222 &1728285742
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1394,7 +1394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: 1
-  sp: {fileID: 21300000, guid: 95d99ef0f882ea6419b9ad076bac50a3, type: 3}
   Black: {fileID: 8333346950874452781, guid: 03f366c0c3817c049868a1b5ba776e9f, type: 3}
   White: {fileID: 7927790498360944108, guid: 6be76975205c5864abc95910aba9c354, type: 3}
   BoardEmpty: {fileID: 5481283311272827631, guid: 80879c9e8881abd47a7b876eeb358236,
