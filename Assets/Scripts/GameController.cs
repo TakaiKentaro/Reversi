@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] GameObject boardDisplay = null;//盤のGameObject
     [SerializeField] Text resultText = null;
+    [SerializeField] Image resultImageWhite = null;
+    [SerializeField] Image resultImageBlack = null;
 
     COLOR[,] board = new COLOR[WIDTH, HEIGHT];
     void Start()
@@ -33,6 +35,8 @@ public class GameController : MonoBehaviour
     {
         player = COLOR.BLACK;
         resultText.gameObject.SetActive(false);
+        resultImageWhite.gameObject.SetActive(false);
+        resultImageBlack.gameObject.SetActive(false);
         resultText.text = "";
         board = new COLOR[WIDTH, HEIGHT];
         board[3, 3] = COLOR.WHITE;
@@ -56,6 +60,7 @@ public class GameController : MonoBehaviour
                 GameObject piece = GetPrefab(board[h, v]);
                 if (board[h, v] == COLOR.EMPTY)
                 {
+                    //座標を一時的に保持
                     int x = h;
                     int y = v;
 
@@ -68,6 +73,7 @@ public class GameController : MonoBehaviour
             }
         }
     }
+    //色によって適切なprefabを取得して返す
     GameObject GetPrefab(COLOR color)
     {
         GameObject prefab;
@@ -92,8 +98,6 @@ public class GameController : MonoBehaviour
     {
         int h = int.Parse(position.Split(',')[0]);
         int v = int.Parse(position.Split(',')[1]);
-        //クリックした座標に駒を置く
-        //board[h, v] = COLOR.BLACK;
         //画面を表示
         ReverseAll(h, v);
         //駒の色を変更
@@ -202,13 +206,16 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+
         if (black > white)
         {
             resultText.text = "黒" + black + "：白" + white + "で黒の勝ち";
+            resultImageBlack.gameObject.SetActive(true);
         }
         else if (black < white)
         {
             resultText.text = "黒" + black + "：白" + white + "で白の勝ち";
+            resultImageWhite.gameObject.SetActive(true);
         }
         else
         {
