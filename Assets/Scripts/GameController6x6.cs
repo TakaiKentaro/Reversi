@@ -23,6 +23,7 @@ public class GameController6x6 : MonoBehaviour
 
     [SerializeField] GameObject boardDisplay = null;//盤のGameObject
     [SerializeField] Text resultText = null;
+    [SerializeField] Text passText = null;
     [SerializeField] Image resultImageWhite = null;
     [SerializeField] Image resultImageBlack = null;
 
@@ -37,6 +38,7 @@ public class GameController6x6 : MonoBehaviour
         resultText.gameObject.SetActive(false);
         resultImageWhite.gameObject.SetActive(false);
         resultImageBlack.gameObject.SetActive(false);
+        passText.gameObject.SetActive(false);
         resultText.text = "";
         board = new COLOR[WIDTH, HEIGHT];
         board[2, 2] = COLOR.WHITE;
@@ -107,6 +109,8 @@ public class GameController6x6 : MonoBehaviour
             if (CheckPass())
             {
                 player = player == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK;
+                passText.gameObject.SetActive(true);
+                Invoke(nameof(PassText), 1f);
                 if (CheckPass())
                 {
                     CheckGame();
@@ -183,6 +187,10 @@ public class GameController6x6 : MonoBehaviour
             }
         }
         return true;
+    }
+    void PassText()
+    {
+        passText.gameObject.SetActive(false);
     }
     void CheckGame()
     {

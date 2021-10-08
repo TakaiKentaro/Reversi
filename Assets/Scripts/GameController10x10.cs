@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using System.Linq;
 
 public class GameController10x10 : MonoBehaviour
 {
@@ -24,6 +23,7 @@ public class GameController10x10 : MonoBehaviour
 
     [SerializeField] GameObject boardDisplay = null;//盤のGameObject
     [SerializeField] Text resultText = null;
+    [SerializeField] Text passText = null;
     [SerializeField] Image resultImageWhite = null;
     [SerializeField] Image resultImageBlack = null;
 
@@ -38,6 +38,7 @@ public class GameController10x10 : MonoBehaviour
         resultText.gameObject.SetActive(false);
         resultImageWhite.gameObject.SetActive(false);
         resultImageBlack.gameObject.SetActive(false);
+        passText.gameObject.SetActive(false);
         resultText.text = "";
         board = new COLOR[WIDTH, HEIGHT];
         board[4, 4] = COLOR.WHITE;
@@ -108,17 +109,17 @@ public class GameController10x10 : MonoBehaviour
             if (CheckPass())
             {
                 player = player == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK;
+                passText.gameObject.SetActive(true);
+                Invoke(nameof(PassText), 1f);
                 if (CheckPass())
                 {
                     CheckGame();
                 }
             }
-            else
-            {
-                ShowBoard();
-            }
+                
         }
-        
+        ShowBoard();
+
     }
     //1方向にゆっくり返す
     void ReverseAll(int h, int v)
@@ -189,6 +190,10 @@ public class GameController10x10 : MonoBehaviour
         }
         return true;
     }
+    void PassText()
+    {
+        passText.gameObject.SetActive(false);
+    }
     void CheckGame()
     {
         int black = 0;
@@ -211,9 +216,6 @@ public class GameController10x10 : MonoBehaviour
                 }
             }
         }
-
-        Image[] allCell = boardDisplay.GetComponentsInChildren<Image>();
-        Debug.Log($"{ allCell.Length}");
 
         if (black > white)
         {

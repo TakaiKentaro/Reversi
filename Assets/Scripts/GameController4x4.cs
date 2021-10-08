@@ -23,6 +23,7 @@ public class GameController4x4 : MonoBehaviour
 
     [SerializeField] GameObject boardDisplay = null;//盤のGameObject
     [SerializeField] Text resultText = null;
+    [SerializeField] Text passText = null;
     [SerializeField] Image resultImageWhite = null;
     [SerializeField] Image resultImageBlack = null;
 
@@ -37,6 +38,7 @@ public class GameController4x4 : MonoBehaviour
         resultText.gameObject.SetActive(false);
         resultImageWhite.gameObject.SetActive(false);
         resultImageBlack.gameObject.SetActive(false);
+        passText.gameObject.SetActive(false);
         resultText.text = "";
         board = new COLOR[WIDTH, HEIGHT];
         board[1, 1] = COLOR.WHITE;
@@ -107,6 +109,8 @@ public class GameController4x4 : MonoBehaviour
             if (CheckPass())
             {
                 player = player == COLOR.BLACK ? COLOR.WHITE : COLOR.BLACK;
+                passText.gameObject.SetActive(true);
+                Invoke(nameof(PassText), 1f);
                 if (CheckPass())
                 {
                     CheckGame();
@@ -173,16 +177,20 @@ public class GameController4x4 : MonoBehaviour
                     COLOR[,] boardTemp = new COLOR[WIDTH, HEIGHT];
                     Array.Copy(board, boardTemp, board.Length);
                     ReverseAll(h, v);
-
                     if (board[h, v] == player)
                     {
                         board = boardTemp;
+                        
                         return false;
                     }
                 }
             }
         }
         return true;
+    }
+    void PassText()
+    {
+        passText.gameObject.SetActive(false);
     }
     void CheckGame()
     {
